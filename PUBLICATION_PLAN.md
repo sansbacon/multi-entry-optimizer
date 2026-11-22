@@ -1,8 +1,77 @@
 # Cleanup and publication plan: picking-winners-nfl
 
-**Status: plan for review only. Nothing in this document has been
-executed.** No files were added, removed, or modified as part of
-producing this plan, beyond this plan document itself.
+**Status: EXECUTED.** You reviewed this plan and answered the open
+questions (see "Confirmed decisions" immediately below); Phases A-F were
+then carried out. The rest of this document is the original plan as
+drafted before execution, kept as the historical record of the
+reasoning; where it conflicts with the summary below, the summary
+reflects what actually happened.
+
+## Confirmed decisions and what was executed
+
+| Decision | Your answer | What was done |
+| --- | --- | --- |
+| Package/import name | `multi-entry-optimizer` / `import multi_entry_optimizer` | Renamed everywhere (PyPI name confirmed unclaimed) |
+| License | MIT | `LICENSE` added, `pyproject.toml` updated |
+| Author | sansbacon / sansbacon@gmail.com | Added to `pyproject.toml` and `LICENSE`; GitHub URLs assumed `github.com/sansbacon/multi-entry-optimizer` -- **verify/correct this username** before pushing |
+| Repo host | GitHub, public | `git init` done locally; **the actual GitHub remote was NOT created** (no `gh` CLI available, no credentials provided) -- see "Remaining manual steps" below |
+| PDF/documents/Julia file | Omit the manuscript (PDF + `documents/`), keep `picking_winners.jl` with credit | Both gitignored (not committed); found and documented the original repo's actual MPL-2.0 license and the paper's free arXiv listing -- see `NOTICE.md` |
+| `src/` layout rename | Approved, import name `multi_entry_optimizer` | Done: `nfl_dfs.py`/`historical_evaluation.py`/`probability_diagnostics.py` → `src/multi_entry_optimizer/{lineups,evaluation,probability}.py` + `__init__.py` + `__main__.py` |
+| CI scope | Full | `.github/workflows/test.yml` (3.11-3.13 matrix + build) and `publish.yml` (tag-triggered, Trusted Publishing) added |
+| README | Full rewrite | Done: quickstart-first; phase narrative moved to `CHANGELOG.md` |
+
+**Additional work done beyond the original plan's scope, discovered
+during execution:**
+- Fixed the 2 pre-existing type diagnostics (`Player.game`, `ModelData.add`).
+- Verified the original Julia repository's actual license (Mozilla
+  Public License 2.0) and the paper's free arXiv listing
+  (<https://arxiv.org/abs/1604.01455>) instead of leaving these as
+  open/unverified questions -- see `NOTICE.md` for the full provenance
+  write-up, including the honest nuance that this Python code began as a
+  conversion of the MPL-2.0 Julia file (not an independent reimplementation).
+- Added `CHANGELOG.md`, `CONTRIBUTING.md`, and `NOTICE.md` (not just a
+  LICENSE file).
+- Added `src/multi_entry_optimizer/__main__.py` so `python -m
+  multi_entry_optimizer` genuinely works, as documented in the README
+  (caught by an actual clean-venv smoke test, not assumed).
+- Built the sdist/wheel, installed the wheel into a disposable virtual
+  environment with no repo checkout present, and confirmed the CLI
+  (`python -m multi_entry_optimizer`) and all three import paths
+  (`multi_entry_optimizer`, `.evaluation`, `.probability`) work; verified
+  the wheel contains only the 4 intended package files (no tests,
+  examples, or excluded reference material leaked in).
+- Validated every Markdown cross-reference link and header anchor across
+  `README.md`/`PAPER_IMPLEMENTATION_PLAN.md`/`CHANGELOG.md` programmatically
+  (not by eyeballing), fixing 2 real anchor mismatches this caught.
+- `git init`'d, staged, and committed (2 commits on `main`); verified via
+  `git status --short` that nothing excluded (PDF, `documents/`, `.vscode/`,
+  build artifacts) was accidentally staged.
+- Full 206-test suite re-run and passing after every structural change.
+
+## Remaining manual steps (not possible for me to complete)
+
+1. **Create the actual GitHub repository** (`sansbacon/multi-entry-optimizer`,
+   public) and push: `git remote add origin
+   https://github.com/sansbacon/multi-entry-optimizer.git && git push -u
+   origin main`. No `gh` CLI is installed in this environment and I have
+   no GitHub credentials, so this step needs you (or install `gh` and
+   run `gh repo create`).
+2. **Verify the GitHub username** `sansbacon` is actually correct --
+   `pyproject.toml`'s `[project.urls]` and `NOTICE.md`/`README.md`
+   assume it from your email handle; update if wrong.
+3. **PyPI release** (Phase F in the original plan below): create a PyPI
+   account if needed, register this repo+`publish.yml` as a Trusted
+   Publisher on PyPI (one-time, done on pypi.org after the GitHub repo
+   exists), then push a `v0.1.0` tag to trigger the publish workflow --
+   or do a manual `twine upload` first release. I built and smoke-tested
+   the wheel locally, but did not and cannot publish to the real PyPI
+   index (no account/credentials available to me).
+4. **Confirm the `multi-entry-optimizer` PyPI name is still unclaimed**
+   at the moment you actually publish (it was unclaimed when checked
+   during this session).
+
+---
+
 
 ## How to read this plan
 
