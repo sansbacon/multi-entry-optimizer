@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multi-entry-optimizer"
+version = "0.1.0"
+description = "Open-source mixed-integer NFL DFS lineup generation"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "sansbacon", email = "sansbacon@gmail.com" }]
+maintainers = [{ name = "sansbacon", email = "sansbacon@gmail.com" }]
+requires-python = ">=3.11"
+keywords = [
+    "nfl",
+    "daily-fantasy-sports",
+    "dfs",
+    "optimization",
+    "mixed-integer-programming",
+    "lineup-optimizer",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Games/Entertainment",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Typing :: Typed",
+]
+dependencies = ["scipy>=1.11,<2", "numpy>=1.24,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "highspy>=1.10,<2"]
+
+[project.urls]
+Homepage = "https://github.com/sansbacon/multi-entry-optimizer"
+Repository = "https://github.com/sansbacon/multi-entry-optimizer"
+Issues = "https://github.com/sansbacon/multi-entry-optimizer/issues"
+Changelog = "https://github.com/sansbacon/multi-entry-optimizer/blob/main/CHANGELOG.md"
+
+[project.scripts]
+multi-entry-optimizer = "multi_entry_optimizer:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

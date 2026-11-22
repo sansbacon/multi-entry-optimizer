@@ -1,0 +1,16 @@
+__pycache__/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+lineups.csv
+
+# Excluded per PUBLICATION_PLAN.md Phase A: the manuscript PDF and its
+# parsed excerpts are development-only reference material, not meant to
+# be redistributed publicly. See NOTICE.md.
+/Picking-Winners.pdf
+/documents/
+
+# Local editor configuration, not meant to be prescriptive for contributors.
+.vscode/
+
